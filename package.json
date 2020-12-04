@@ -1,0 +1,16 @@
+{
+  "name": "trainings",
+  "version": "1.0.0",
+  "description": "Creating smart function using decorator for wrapper function for efficient call forwarding...",
+  "main": "fwdcall.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
