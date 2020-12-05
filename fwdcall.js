@@ -15,16 +15,22 @@ const calc = {
   }
 }
 const di = {
-  getCalcContext(){
-    return calc;
+  context: "",
+  set setContext(context){
+    this.context = context
+  },
+  getContext(){
+    return this.context;
   }
 }
-let decoratorService = function(cb, argHandler,di){
+
+// Memoizing service
+let decoratorService = function(cb, argHandler,context){
+  // caching usage
   let map = new Map();
   return function(){
     let key = argHandler(...arguments);
     if(!map.has(key)){
-      const context = di.getCalcContext()
       let result = cb.call(context,...arguments)
       map.set(key, result)
       console.log("setting key: map size... ",map.size)
@@ -43,12 +49,14 @@ function argHandler(){
 }
 
 // Test function.
-let sum = decoratorService(calc.sum,argHandler,di)
-sum(2)
+di.setContext = calc
+const context = di.getContext()
+let sum = decoratorService(calc.sum,argHandler,context)
+sum(2,6)
 console.log(calc.subscribe)
-sum(3)
+sum(3,5)
 console.log(calc.subscribe)
-sum(4)
+sum(2,6)
 console.log(calc.subscribe)
-
-
+sum(5,3)
+console.log(calc.subscribe)
